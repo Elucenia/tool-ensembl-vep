@@ -1,0 +1,15 @@
+{
+  "name": "@elucenia/tool-ensembl-vep",
+  "version": "2026.10.5",
+  "private": true,
+  "description": "Ensembl VEP: variant consequences",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "test": "node test.cjs",
+    "start": "node server.cjs"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,513 @@
+{
+  "schema": "elucenia-public-research-specification-v1",
+  "id": "ensembl-vep",
+  "provider": "vep",
+  "implementationVersion": "ELUCENIA-research-api-2026-10-05-v3",
+  "policy": {
+    "url": "https://rest.ensembl.org/",
+    "release": 116,
+    "restVersion": "15.12",
+    "assembly": "GRCh38",
+    "maxVariants": 10
+  },
+  "transportLimits": {
+    "requestMs": 60000,
+    "workflowMs": 120000,
+    "clientMs": 125000,
+    "routeSeconds": 125,
+    "retry": false
+  },
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "assembly": {
+        "const": "GRCh38"
+      },
+      "variants": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 10,
+        "uniqueItems": true,
+        "items": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "chromosome": {
+              "type": "string",
+              "pattern": "^(?:[1-9]|1[0-9]|2[0-2]|X|Y|MT)$"
+            },
+            "position": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 250000000
+            },
+            "reference": {
+              "type": "string",
+              "pattern": "^[ACGT]$"
+            },
+            "alternate": {
+              "type": "string",
+              "pattern": "^[ACGT]$"
+            }
+          },
+          "required": [
+            "chromosome",
+            "position",
+            "reference",
+            "alternate"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "publicResearchData": {
+        "const": true,
+        "description": "Only public or synthetic research inputs; no patient/confidential data."
+      }
+    },
+    "required": [
+      "assembly",
+      "variants",
+      "publicResearchData"
+    ],
+    "additionalProperties": false
+  },
+  "responseSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "toolId": {
+        "const": "ensembl-vep"
+      },
+      "implementationVersion": {
+        "const": "ELUCENIA-research-api-2026-10-05-v3"
+      },
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "assembly": {
+            "const": "GRCh38"
+          },
+          "variants": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "uniqueItems": true,
+            "items": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "chromosome": {
+                  "type": "string",
+                  "pattern": "^(?:[1-9]|1[0-9]|2[0-2]|X|Y|MT)$"
+                },
+                "position": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 250000000
+                },
+                "reference": {
+                  "type": "string",
+                  "pattern": "^[ACGT]$"
+                },
+                "alternate": {
+                  "type": "string",
+                  "pattern": "^[ACGT]$"
+                }
+              },
+              "required": [
+                "chromosome",
+                "position",
+                "reference",
+                "alternate"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "publicResearchData": {
+            "const": true,
+            "description": "Only public or synthetic research inputs; no patient/confidential data."
+          }
+        },
+        "required": [
+          "assembly",
+          "variants",
+          "publicResearchData"
+        ],
+        "additionalProperties": false
+      },
+      "retrievedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uri"
+        },
+        "minItems": 3,
+        "maxItems": 4
+      },
+      "rows": {
+        "type": "array",
+        "items": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "chromosome": {
+              "type": "string"
+            },
+            "position": {
+              "type": "integer"
+            },
+            "reference": {
+              "type": "string"
+            },
+            "alternate": {
+              "type": "string"
+            },
+            "consequence": {
+              "type": "string"
+            },
+            "transcripts": {
+              "type": "array",
+              "items": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "geneId": {
+                    "type": "string"
+                  },
+                  "geneSymbol": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "transcriptId": {
+                    "type": "string"
+                  },
+                  "consequences": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "impact": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "canonical": {
+                    "type": "boolean"
+                  },
+                  "aminoAcids": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "proteinStart": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "proteinEnd": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "geneId",
+                  "geneSymbol",
+                  "transcriptId",
+                  "consequences",
+                  "impact",
+                  "canonical",
+                  "aminoAcids",
+                  "proteinStart",
+                  "proteinEnd"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "chromosome",
+            "position",
+            "reference",
+            "alternate",
+            "consequence",
+            "transcripts"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "review": {
+        "type": "object",
+        "properties": {
+          "engineeringScope": {
+            "type": "string"
+          },
+          "clinical": {
+            "const": "not-approved"
+          },
+          "professionalLanguage": {
+            "const": "not-approved"
+          }
+        },
+        "required": [
+          "engineeringScope",
+          "clinical",
+          "professionalLanguage"
+        ],
+        "additionalProperties": false
+      },
+      "version": {
+        "type": "object",
+        "properties": {
+          "ensembl": {
+            "const": 116
+          },
+          "rest": {
+            "const": "15.12"
+          },
+          "assembly": {
+            "const": "GRCh38"
+          }
+        },
+        "required": [
+          "ensembl",
+          "rest",
+          "assembly"
+        ],
+        "additionalProperties": false
+      },
+      "rights": {
+        "type": "object",
+        "properties": {
+          "dataLicense": {
+            "type": "string"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "dataLicense",
+          "sourceUrl"
+        ],
+        "additionalProperties": false
+      },
+      "scope": {
+        "type": "object",
+        "properties": {
+          "species": {
+            "const": "homo_sapiens"
+          },
+          "variants": {
+            "const": "forward-strand single nucleotide substitutions only"
+          },
+          "externalPlugins": {
+            "const": false
+          },
+          "clinicalInterpretation": {
+            "const": false
+          }
+        },
+        "required": [
+          "species",
+          "variants",
+          "externalPlugins",
+          "clinicalInterpretation"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "toolId",
+      "implementationVersion",
+      "input",
+      "retrievedAt",
+      "sources",
+      "rows",
+      "review",
+      "version",
+      "rights",
+      "scope"
+    ],
+    "additionalProperties": false
+  },
+  "sources": [
+    "https://rest.ensembl.org/documentation/info/vep_region_post",
+    "https://rest.ensembl.org/documentation/info/sequence_region",
+    "https://www.ensembl.org/info/about/legal/disclaimer.html"
+  ],
+  "docs": [
+    {
+      "locale": "pt-BR",
+      "path": "documentation/pt-BR.md",
+      "sha256": "de9ab3935a8b21932f6a9994d43912a1bb04f84c09b6ebd55ca2c5f3ff168661",
+      "bytes": 3673
+    },
+    {
+      "locale": "en",
+      "path": "documentation/en.md",
+      "sha256": "2f86d4571ac44a4036f7fca61aa6d4916621fc72ad1219b028cf4dbaee091a64",
+      "bytes": 3528
+    },
+    {
+      "locale": "es",
+      "path": "documentation/es.md",
+      "sha256": "f664838f11a4a3d4fa2debcf4e185582a82674673e760d33ae9414e6acc65c73",
+      "bytes": 3743
+    },
+    {
+      "locale": "fr",
+      "path": "documentation/fr.md",
+      "sha256": "8c21ae5949d07bbd3b5e82891728f8af179b00ab734f4f96c3757f6d600d68ce",
+      "bytes": 3896
+    },
+    {
+      "locale": "de",
+      "path": "documentation/de.md",
+      "sha256": "220c4f8821be90a5ea24863fe80e6a94599ac5c70a92ab31cdefe5db0f0b4ad2",
+      "bytes": 3769
+    },
+    {
+      "locale": "it",
+      "path": "documentation/it.md",
+      "sha256": "6c6510a6175a840aebaa2e572b6294be76708df11444628c7135ddeb7620b2d4",
+      "bytes": 3749
+    },
+    {
+      "locale": "ar",
+      "path": "documentation/ar.md",
+      "sha256": "c6bfa05acbf3e392b133532f4b34ed292a6e9740897361d9fdd7fcbff6a45271",
+      "bytes": 4498
+    },
+    {
+      "locale": "zh",
+      "path": "documentation/zh.md",
+      "sha256": "0c22bb27b83c282faecd9345001c0e9d9bb19854ed28d0c125b721b0ecadff04",
+      "bytes": 3299
+    },
+    {
+      "locale": "ja",
+      "path": "documentation/ja.md",
+      "sha256": "039662c17b5d1894099baeff4f2ecbd4a8de063ff81e16e4eb0ffc25912135dd",
+      "bytes": 3898
+    },
+    {
+      "locale": "hi",
+      "path": "documentation/hi.md",
+      "sha256": "95867130180541ddf793c007f7f3dfec28cc08ba070bf432bc2f60a72889a241",
+      "bytes": 6321
+    }
+  ],
+  "scopeByLocale": {
+    "pt-BR": "Humanos, GRCh38, fita direta, apenas substituições de um nucleotídeo. Até 10 variantes. O alelo de referência é conferido na sequência genômica. Não converte GRCh37 nem infere patogenicidade.",
+    "en": "Human, GRCh38, forward strand, single nucleotide substitutions only. Up to 10 variants. The reference allele is checked against the genomic sequence. No GRCh37 conversion or pathogenicity inference.",
+    "es": "Humanos, GRCh38, hebra directa, solo sustituciones de un nucleótido. Hasta 10 variantes. Se comprueba el alelo de referencia con la secuencia genómica. No convierte GRCh37 ni infiere patogenicidad.",
+    "fr": "Humain, GRCh38, brin direct, substitutions d’un seul nucléotide uniquement. Jusqu’à 10 variants. L’allèle de référence est vérifié dans la séquence génomique. Aucune conversion GRCh37 ni inférence de pathogénicité.",
+    "de": "Mensch, GRCh38, Vorwärtsstrang, ausschließlich einzelne Nukleotidsubstitutionen. Bis zu 10 Varianten. Das Referenzallel wird an der Genomsequenz geprüft. Keine GRCh37-Umrechnung oder Pathogenitätsbewertung.",
+    "it": "Umano, GRCh38, filamento diretto, solo sostituzioni di un singolo nucleotide. Fino a 10 varianti. L’allele di riferimento viene verificato nella sequenza genomica. Nessuna conversione GRCh37 o inferenza di patogenicità.",
+    "ar": "الإنسان، GRCh38، الشريط المباشر، استبدالات نوكليوتيد واحد فقط. حتى 10 متغيرات. يُفحص الأليل المرجعي مقابل التسلسل الجينومي. لا يُحوّل GRCh37 ولا يستنتج الإمراضية.",
+    "zh": "人类、GRCh38、正向链，仅支持单核苷酸替换。最多 10 个变异。参考等位基因会与基因组序列核对。不转换 GRCh37，也不推断致病性。",
+    "ja": "ヒト、GRCh38、順方向鎖の単一塩基置換のみ。最大10バリアント。参照アレルをゲノム配列と照合します。GRCh37からの変換や病原性の推定は行いません。",
+    "hi": "मानव, GRCh38, आगे की स्ट्रैंड, केवल एक न्यूक्लियोटाइड प्रतिस्थापन। अधिकतम 10 वेरिएंट। संदर्भ एलील का जीनोम अनुक्रम से मिलान किया जाता है। GRCh37 रूपांतरण या रोगजनकता का अनुमान नहीं होता।"
+  },
+  "reviewAndRightsByLocale": {
+    "pt-BR": {
+      "review": "Interface e contratos implementados na ELUCENIA. A análise depende da disponibilidade do serviço responsável. Revisão clínica independente e revisão linguística profissional não concluídas.",
+      "rights": "Dados gerados pelo Ensembl podem ser usados sem restrição conforme a declaração do projeto. Esta interface omite anotações de terceiros e não avalia patogenicidade.",
+      "methodDisclosure": "O método SMM 1.0 é solicitado explicitamente. A documentação informa a API 2.15; a resposta não expõe o hash do modelo binário em execução."
+    },
+    "en": {
+      "review": "Interface and contracts implemented on ELUCENIA. Analysis depends on the responsible service being available. Independent clinical review and professional language review are incomplete.",
+      "rights": "Ensembl-generated data may be used without restriction under the project disclaimer. This interface omits third-party annotations and does not assess pathogenicity.",
+      "methodDisclosure": "SMM 1.0 is requested explicitly. The documentation identifies API 2.15; the response does not expose the running binary model hash."
+    },
+    "es": {
+      "review": "Interfaz y contratos implementados en ELUCENIA. El análisis depende de la disponibilidad del servicio responsable. No se han completado la revisión clínica independiente ni la revisión lingüística profesional.",
+      "rights": "Los datos generados por Ensembl pueden usarse sin restricciones según la declaración del proyecto. Esta interfaz omite anotaciones de terceros y no evalúa patogenicidad.",
+      "methodDisclosure": "Se solicita explícitamente SMM 1.0. La documentación identifica la API 2.15; la respuesta no expone el hash del modelo binario en ejecución."
+    },
+    "fr": {
+      "review": "Interface et contrats implémentés dans ELUCENIA. L’analyse dépend de la disponibilité du service responsable. La révision clinique indépendante et la révision linguistique professionnelle ne sont pas achevées.",
+      "rights": "Les données produites par Ensembl peuvent être utilisées sans restriction selon la déclaration du projet. Cette interface exclut les annotations de tiers et n’évalue pas la pathogénicité.",
+      "methodDisclosure": "SMM 1.0 est demandé explicitement. La documentation indique l’API 2.15 ; la réponse ne fournit pas l’empreinte du modèle binaire exécuté."
+    },
+    "de": {
+      "review": "Oberfläche und Schnittstellenverträge sind in ELUCENIA implementiert. Die Analyse hängt von der Verfügbarkeit des zuständigen Dienstes ab. Die unabhängige klinische Prüfung und die professionelle sprachliche Prüfung sind nicht abgeschlossen.",
+      "rights": "Von Ensembl erzeugte Daten dürfen laut Projekterklärung uneingeschränkt verwendet werden. Diese Oberfläche lässt Anmerkungen Dritter weg und bewertet keine Pathogenität.",
+      "methodDisclosure": "SMM 1.0 wird ausdrücklich angefordert. Die Dokumentation nennt API 2.15; die Antwort legt den Hash des ausgeführten binären Modells nicht offen."
+    },
+    "it": {
+      "review": "Interfaccia e contratti implementati in ELUCENIA. L’analisi dipende dalla disponibilità del servizio responsabile. La revisione clinica indipendente e la revisione linguistica professionale non sono complete.",
+      "rights": "I dati generati da Ensembl possono essere utilizzati senza restrizioni secondo la dichiarazione del progetto. Questa interfaccia omette le annotazioni di terzi e non valuta la patogenicità.",
+      "methodDisclosure": "SMM 1.0 viene richiesto esplicitamente. La documentazione indica API 2.15; la risposta non espone l’hash del modello binario in esecuzione."
+    },
+    "ar": {
+      "review": "تم تنفيذ الواجهة وعقود الطلب والاستجابة داخل ELUCENIA. يعتمد التحليل على توفر الخدمة المسؤولة. لم تكتمل المراجعة السريرية المستقلة ولا المراجعة اللغوية المهنية.",
+      "rights": "يمكن استخدام البيانات التي ينتجها Ensembl دون قيود وفق بيان المشروع. تستبعد هذه الواجهة تعليقات الجهات الأخرى ولا تقيّم الإمراضية.",
+      "methodDisclosure": "يُطلب SMM 1.0 صراحةً. تحدد الوثائق واجهة API 2.15؛ ولا تكشف الاستجابة بصمة التجزئة للنموذج الثنائي قيد التشغيل."
+    },
+    "zh": {
+      "review": "ELUCENIA已实现界面及请求和响应契约。分析依赖相应服务的可用性。独立临床审核和专业语言审核尚未完成。",
+      "rights": "根据项目声明，Ensembl生成的数据可不受限制地使用。本界面不提供第三方注释，也不评估致病性。",
+      "methodDisclosure": "请求明确指定SMM 1.0。文档标明API 2.15；响应不提供正在运行的二进制模型哈希。"
+    },
+    "ja": {
+      "review": "ELUCENIA内に画面とリクエスト・レスポンスの契約を実装しています。解析には提供元サービスの稼働が必要です。独立した臨床レビューと専門家による言語レビューは完了していません。",
+      "rights": "プロジェクトの声明により、Ensemblが生成したデータは制限なく利用できます。この画面では第三者の注釈を除外し、病原性を評価しません。",
+      "methodDisclosure": "SMM 1.0を明示的に指定します。文書にはAPI 2.15と記載されていますが、レスポンスには実行中のバイナリモデルのハッシュが含まれていません。"
+    },
+    "hi": {
+      "review": "ELUCENIA में इंटरफ़ेस और अनुरोध तथा प्रतिक्रिया अनुबंध लागू हैं। विश्लेषण संबंधित सेवा की उपलब्धता पर निर्भर है। स्वतंत्र नैदानिक समीक्षा और पेशेवर भाषा समीक्षा पूरी नहीं हुई हैं।",
+      "rights": "परियोजना की घोषणा के अनुसार Ensembl द्वारा उत्पन्न डेटा बिना प्रतिबंध इस्तेमाल किया जा सकता है। यह इंटरफ़ेस तृतीय-पक्ष एनोटेशन छोड़ देता है और रोगजनकता का आकलन नहीं करता।",
+      "methodDisclosure": "SMM 1.0 का स्पष्ट अनुरोध किया जाता है। दस्तावेज़ API 2.15 बताते हैं; प्रतिक्रिया चल रहे बाइनरी मॉडल का हैश नहीं देती।"
+    }
+  },
+  "interfaceKeys": [
+    "variants",
+    "assembly",
+    "chromosome",
+    "position",
+    "reference",
+    "alternate",
+    "confirm"
+  ],
+  "resultKeys": [
+    "chromosome",
+    "position",
+    "reference",
+    "alternate",
+    "consequence",
+    "transcript",
+    "gene",
+    "canonical",
+    "impact",
+    "aminoAcids",
+    "proteinPosition"
+  ],
+  "publicInputOnly": true,
+  "fullProviderImplemented": false,
+  "numericalReferenceCasesAdded": 0,
+  "approval": {
+    "clinical": "not-performed",
+    "professionalLanguage": "not-performed"
+  },
+  "sourceSnapshot": {
+    "websiteFreezeSha256": "b7ff37bd2e4c18b959c3431d9ff57d8ec654fbafacb0443eaea8be0c4a68b435",
+    "methodTransportSha256": "b862226c9d3b9956848ef29eb03177e6c4b64e8c2157f1ca360611c4ba1de036",
+    "providerLockSha256": "08ecf09dfdc0577008a720df82735ca26fc1bec2e1e8f7a49cb2817d2a86a9f1"
+  }
+}

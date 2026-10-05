@@ -1,0 +1,152 @@
+{
+  "schema": "elucenia-public-research-provenance-v1",
+  "id": "ensembl-vep",
+  "implementationVersion": "ELUCENIA-research-api-2026-10-05-v3",
+  "sourceSnapshot": {
+    "websiteFreezeSha256": "b7ff37bd2e4c18b959c3431d9ff57d8ec654fbafacb0443eaea8be0c4a68b435",
+    "methodTransportSha256": "b862226c9d3b9956848ef29eb03177e6c4b64e8c2157f1ca360611c4ba1de036",
+    "providerLockSha256": "08ecf09dfdc0577008a720df82735ca26fc1bec2e1e8f7a49cb2817d2a86a9f1"
+  },
+  "primarySources": [
+    "https://rest.ensembl.org/documentation/info/vep_region_post",
+    "https://rest.ensembl.org/documentation/info/sequence_region",
+    "https://www.ensembl.org/info/about/legal/disclaimer.html"
+  ],
+  "fixtureScope": "Captured official API responses for fixed public/synthetic research inputs; no actual patient submission, provider binary or private portal source.",
+  "fixtureHashes": [
+    {
+      "url": "https://rest.ensembl.org/info/data?content-type=application/json",
+      "method": "GET",
+      "input": null,
+      "status": 200,
+      "sha256": "86e87c46ae1a424702676493d024d0508ce60f6c951b0b2803ce10269e09c20c",
+      "bytes": 18,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:43:07.772Z",
+      "file": "response-01.txt",
+      "originalReceipt": {
+        "folder": "live-services-r1",
+        "sha256": "49177aa88e927f9e029ee4c1a3e5507d53b78bd74a63f4e67d2c3346e00c55eb"
+      }
+    },
+    {
+      "url": "https://rest.ensembl.org/info/rest?content-type=application/json",
+      "method": "GET",
+      "input": null,
+      "status": 200,
+      "sha256": "8d78789edb91c0e1e082879699af99c99ddf89d769b535a5f7320fd784519639",
+      "bytes": 19,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:43:13.661Z",
+      "file": "response-02.txt",
+      "originalReceipt": {
+        "folder": "live-services-r1",
+        "sha256": "49177aa88e927f9e029ee4c1a3e5507d53b78bd74a63f4e67d2c3346e00c55eb"
+      }
+    },
+    {
+      "url": "https://rest.ensembl.org/sequence/region/homo_sapiens/21%3A26960070..26960070%3A1?content-type=application/json&coord_system_version=GRCh38",
+      "method": "GET",
+      "input": null,
+      "status": 200,
+      "sha256": "40886137e2e6b6034791f22d373a636fe279d6f50c65639c710caaa6892cb8a7",
+      "bytes": 110,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:43:21.156Z",
+      "file": "response-03.txt",
+      "originalReceipt": {
+        "folder": "live-services-r1",
+        "sha256": "49177aa88e927f9e029ee4c1a3e5507d53b78bd74a63f4e67d2c3346e00c55eb"
+      }
+    },
+    {
+      "url": "https://rest.ensembl.org/info/data?content-type=application/json",
+      "method": "GET",
+      "input": null,
+      "status": 200,
+      "sha256": "86e87c46ae1a424702676493d024d0508ce60f6c951b0b2803ce10269e09c20c",
+      "bytes": 18,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:44:57.660Z",
+      "file": "response-04.txt",
+      "originalReceipt": {
+        "folder": "live-supplement-r1",
+        "sha256": "8cc35d7be4ddcbac7876b10b69c507a9ae1c57569c4e4fef737ae489601436cb"
+      }
+    },
+    {
+      "url": "https://rest.ensembl.org/info/rest?content-type=application/json",
+      "method": "GET",
+      "input": null,
+      "status": 200,
+      "sha256": "8d78789edb91c0e1e082879699af99c99ddf89d769b535a5f7320fd784519639",
+      "bytes": 19,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:44:58.479Z",
+      "file": "response-05.txt",
+      "originalReceipt": {
+        "folder": "live-supplement-r1",
+        "sha256": "8cc35d7be4ddcbac7876b10b69c507a9ae1c57569c4e4fef737ae489601436cb"
+      }
+    },
+    {
+      "url": "https://rest.ensembl.org/sequence/region/homo_sapiens/7%3A140753336..140753336%3A1?content-type=application/json&coord_system_version=GRCh38",
+      "method": "GET",
+      "input": null,
+      "status": 200,
+      "sha256": "8553567a9b23bfa2d8dd8892788274a929b428d303fdee29ee5aa816b2efec04",
+      "bytes": 112,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:44:59.091Z",
+      "file": "response-06.txt",
+      "originalReceipt": {
+        "folder": "live-supplement-r1",
+        "sha256": "8cc35d7be4ddcbac7876b10b69c507a9ae1c57569c4e4fef737ae489601436cb"
+      }
+    },
+    {
+      "url": "https://rest.ensembl.org/vep/homo_sapiens/region?canonical=1",
+      "method": "POST",
+      "input": {
+        "variants": [
+          "7 140753336 ELUCENIA_1 A T . . ."
+        ]
+      },
+      "status": 200,
+      "sha256": "7ef5cedaa373189971593ba633a8694fc2286320e10e6c530133e87c4e27cade",
+      "bytes": 14797,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:45:04.180Z",
+      "file": "response-07.txt",
+      "originalReceipt": {
+        "folder": "live-supplement-r1",
+        "sha256": "8cc35d7be4ddcbac7876b10b69c507a9ae1c57569c4e4fef737ae489601436cb"
+      }
+    },
+    {
+      "url": "https://rest.ensembl.org/info/data?content-type=application/json",
+      "method": "GET",
+      "input": null,
+      "status": 200,
+      "sha256": "86e87c46ae1a424702676493d024d0508ce60f6c951b0b2803ce10269e09c20c",
+      "bytes": 18,
+      "contentType": "application/json",
+      "retrievedAt": "2026-10-05T13:45:21.983Z",
+      "file": "response-08.txt",
+      "originalReceipt": {
+        "folder": "live-supplement-r1",
+        "sha256": "8cc35d7be4ddcbac7876b10b69c507a9ae1c57569c4e4fef737ae489601436cb"
+      }
+    }
+  ],
+  "rights": "MIT authored software only; provider data/method rights and attributions remain separate in RIGHTS-SCOPE.md and NOTICE.md",
+  "approval": {
+    "clinical": "not-performed",
+    "professionalLanguage": "not-performed"
+  },
+  "currentProviderHttpEvidence": {
+    "generalReceiptHash": "f2f763fc7ba9fbec8affbfda02a3b8e455e5f88f8c57e3dc0c234263c45dbe06",
+    "iedbCorrectedOrderReceiptHash": "257b338cc8cf5dc57974d0287e48adebfeb275229bf1807a56e657ecb79b9c64",
+    "scope": "Historical v2 loopback HTTP to official APIs only. The current v3 transport has offline tests; fresh compiled R8 provider gates remain required."
+  }
+}
